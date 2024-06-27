@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>App</title>
+  </head>
+  <body>
+    <script>
+      window._APP_VUE_DATA=<%=  process.env.VUE_APP_DATA %>
+      window._APP_BASE_URL="<%=  process.env.VUE_APP_BASE_URL %>"
+    </script>
+    <div>
+      {{ message }}
+    </div>
+    <div id="app">
+    {{ message }}
+    </div>
+  </body>
+</html>

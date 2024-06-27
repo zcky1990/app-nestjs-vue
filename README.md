@@ -38,6 +38,7 @@ $ npm run build:prod
 ```
 
 # Running StoryBook
+You can check how to use vue components in this project by running this command below:
 ````bash
 $ npm run storybook
 ````

@@ -1,39 +1,36 @@
 <template>
     <fieldset>
-        <label v-if="checkBoxLabel !== undefined || checkBoxDescription !== ''"
+        <label v-if="checkBoxLabel !== undefined || checkBoxLabel !== ''"
             :class="['block text-xs font-medium text-gray-700']">{{ checkBoxLabel }}</label>
-        <label v-if="checkBoxDescription !== undefined || checkBoxDescription !== ''"
-            :class="['mt-1 block text-xs font-light text-gray-700']">{{ checkBoxDescription }}</label>
+        <label v-if="checkBoxDesc !== undefined || checkBoxDesc !== ''"
+            :class="['mt-1 block text-xs font-light text-gray-700']">{{ checkBoxDesc }}</label>
         <div :class="[getCheckBoxDividerCss]">
             <label v-for="item in checkBoxData" :key="item.value" class="flex cursor-pointer items-start gap-2 py-2">
                 <div class="flex items-center">
                     &#8203;
                     <input @change="handleChecked" type="checkbox" class="size-3 rounded border-gray-300"
-                        :value="item.value" />
+                        :value="item.value" v-model="checkedValues" />
                 </div>
                 <div>
-                    <strong class="font-light text-xs text-gray-900"> {{ item.label }}</strong>
-                    <p v-if="item.description !== undefined || item.description !== ''"
-                        class="mt-1 text-pretty font-light text-xs text-gray-700">
+                    <strong class="font-light text-xs text-gray-900">{{ item.label }}</strong>
+                    <p v-if="item.description" class="text-pretty font-light text-xs text-gray-700">
                         {{ item.description }}
                     </p>
                 </div>
             </label>
         </div>
-        <label v-show="showError" :class="['block text-xs font-light pb-2 text-red-400']"> {{ getErrorText }} </label>
+        <label v-show="showError" :class="['block text-xs font-light pb-2 text-red-400']">{{ getErrorText }}</label>
     </fieldset>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 
-
 interface CheckBoxItem {
     label: string;
     value: string;
-    description: string
+    description?: string; // Make description optional in CheckBoxItem
 }
-
 
 export default defineComponent({
     name: 'CheckBoxComponent',
@@ -42,10 +39,9 @@ export default defineComponent({
             type: String,
             default: ''
         },
-        checkBoxDescription: {
+        checkBoxDesc: {
             type: String,
             default: ''
-            //  default: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
         },
         checkBoxErrorLabel: {
             type: String,
@@ -54,21 +50,11 @@ export default defineComponent({
         checkBoxData: {
             type: Array as PropType<CheckBoxItem[]>,
             default: () => [
-                {
-                    label: 'lorem ipssum 1',
-                    value: '1',
-                    description: 'Lorem ipsum dolor sit amet'
-                },
-                {
-                    label: 'lorem ipssum 2',
-                    value: '2',
-                    description: 'Lorem ipsum dolor sit amet'
-                }
             ]
         },
         value: {
-            type: String,
-            default: ''
+            type: [String, Array] as PropType<string | string[]>, // Accept string or string array for value prop
+            default: () => [] // Default value as string array
         },
         showError: {
             type: Boolean,
@@ -77,35 +63,74 @@ export default defineComponent({
         showCheckBoxDivider: {
             type: Boolean,
             default: true
+        },
+        singleSelection: {
+            type: Boolean,
+            default: true
         }
+    },
+    data() {
+        return {
+            checkedValues: [] as string[] // Initialize checkedValues as an empty string array
+        };
     },
     watch: {
         value(newValue) {
             this.checkIfEmpty(newValue);
+        },
+        checkedValues(newValues) {
+            this.$emit('update:value', this.singleSelection ? newValues[0] : newValues);
         }
     },
     computed: {
         getErrorText(): string {
-            return (this.checkBoxErrorLabel !== '' || this.checkBoxErrorLabel === undefined) ? this.checkBoxErrorLabel : 'Please checked the checkbox'
+            return this.checkBoxErrorLabel || 'Please checked the checkbox';
         },
         getCheckBoxDividerCss(): string {
-            return this.showCheckBoxDivider ? 'divide-y divide-gray-200' : ''
+            return this.showCheckBoxDivider ? 'divide-y divide-gray-200' : '';
         }
     },
     methods: {
-        handleInput(event: any) {
-            const newValue = event.target.value;
-            this.$emit('update:value', newValue);
-            this.checkIfEmpty(newValue);
-        },
-        checkIfEmpty(value: string) {
-            if (value.trim() !== '') {
-                this.$emit('update:showError', false);
+        handleChecked(event: Event) {
+            const newValue = (event.target as HTMLInputElement).value;
+            if (this.singleSelection) {
+                const value = this.checkedValues[0]
+                if (value === undefined) {
+                    this.checkedValues = [];
+                } else {
+                    this.checkedValues.pop()
+                    this.checkedValues = [newValue];
+                }
+                console.log(this.checkedValues[0])
+                if (!(event.target as HTMLInputElement).checked && !this.checkedValues.includes(newValue)) {
+                    this.checkedValues.pop()
+                } else {
+                    this.checkedValues = [newValue];
+                }
+            } else {
+                if ((event.target as HTMLInputElement).checked) {
+                    if (!this.checkedValues.includes(newValue)) {
+                        this.checkedValues.push(newValue);
+                    }
+                } else {
+                    this.checkedValues = this.checkedValues.filter(value => value !== newValue);
+                }
             }
         },
-        handleChecked(event: any) {
-            console.log(event.target.value)
-        }
+        checkIfEmpty(newValue: string | string[]) {
+            if (Array.isArray(newValue)) {
+                newValue.forEach(val => {
+                    if (val && !this.checkedValues.includes(val)) {
+                        this.checkedValues.push(val);
+                    }
+                });
+            } else {
+                this.checkedValues = [newValue];
+            }
+        },
+    },
+    mounted() {
+        this.checkIfEmpty(this.value);
     }
 });
 </script>

@@ -11,7 +11,8 @@
         <selectComp v-model:value="dropdown.value" :select-label="dropdown.dropdownLabel" :select-items="dropdown.dropdownItem" v-model:show-error="dropdown.error"/>
         <dividerComp :message="divider.message" :message-position="divider.messagePosition" :color="divider.color"
             :message-transform="divider.messageTransform" />
-        <checkBox />
+        <checkBox v-model:value="checkBox.value" :check-box-label="checkBox.label" :check-box-desc="checkBox.desc" :check-box-data="checkBox.items" v-model:show-error="checkBox.error" :single-selection="checkBox.single"/>
+        {{ checkBox.value }}    
     </div>
 </template>
 
@@ -73,6 +74,23 @@ export default defineComponent({
                 {
                     key: "Dropdown 2",
                     value: "2"
+                }],
+                error: true
+            },
+            checkBox: {
+                label: "Checkbox Label Example",
+                desc: "CheckBox Descripton label Example",
+                value: ['value_1'],
+                single: true,
+                items: [{
+                    label: 'checkbox label 1',
+                    value: 'value_1',
+                    description: 'label description'
+                },
+                {
+                    label: 'checkbox label 2',
+                    value: 'value_2',
+                    description: 'label description'
                 }],
                 error: true
             }

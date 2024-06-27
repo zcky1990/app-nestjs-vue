@@ -1,8 +1,7 @@
 ## Description
+This project utilizes NestJS as the backend framework, integrated with the Handlebars templating engine for server-side rendering, and VueJS for the frontend to create a dynamic and interactive user experience. The combination of these technologies provides a robust and scalable solution for developing modern web applications.
 
-this is project that use nestJS handlebar engine + vueJS
 ## Installation
-
 ```bash
 $ npm install
 ```

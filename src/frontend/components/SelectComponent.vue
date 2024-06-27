@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-2">
-        <label for="SelectComponent" :class="['block text-xs font-medium', getLabelTextColor]">
+        <label for="SelectComponent" :class="['block text-xs font-medium text-gray-700']">
             {{ selectLabel }}
         </label>
         <select v-model="selectedValue"

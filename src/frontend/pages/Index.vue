@@ -1,5 +1,5 @@
 <template>
-    <div class="container text-center">
+    <div class="container mx-auto">
         Index Page
         <snackBar :show="snackBar.show" :message="snackBar.snackbarMessage" position="top" color="green" :timeout="snackBar.timeout"
             :type="snackBar.type" :title="snackBar.title" @show="showSnackbar"
@@ -11,6 +11,7 @@
         <selectComp v-model:value="dropdown.value" :select-label="dropdown.dropdownLabel" :select-items="dropdown.dropdownItem" v-model:show-error="dropdown.error"/>
         <dividerComp :message="divider.message" :message-position="divider.messagePosition" :color="divider.color"
             :message-transform="divider.messageTransform" />
+        <checkBox />
     </div>
 </template>
 
@@ -21,6 +22,7 @@ import dropdown from "./../form/DropdownComponent.vue"
 import selectComp from "./../form/SelectComponent.vue"
 import inputComp from "./../form/InputComponent.vue"
 import textArea from "./../form/TextAreaComponent.vue"
+import checkBox from "./../form/CheckBoxComponent.vue"
 
 
 import { defineComponent } from 'vue';
@@ -33,7 +35,8 @@ export default defineComponent({
         dividerComp,
         selectComp,
         textArea,
-        inputComp
+        inputComp,
+        checkBox
     },
     data() {
         return {

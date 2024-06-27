@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-2">
-        <label :class="['block text-xs font-light', getLabelTextColor]">{{ textAreaLabel }}</label>
+        <label :class="['block text-xs font-medium', getLabelTextColor]">{{ textAreaLabel }}</label>
         <label :class="['relative block rounded-md border shadow-sm', getHoverClassInput, getBorderClassInput]">
             <textarea
                 class="text-xs w-full font-light p-2 peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0"

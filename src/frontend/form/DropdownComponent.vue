@@ -1,6 +1,6 @@
 <template>
     <div @focusout="handleFocusOut" class="flex flex-col gap-2" tabindex="0">
-        <label v-show="showDropdownLabel" :class="['block text-xs font-light', getLabelTextColor]"> {{ dropdownLabel }}
+        <label v-show="showDropdownLabel" :class="['block text-xs font-medium', getLabelTextColor]"> {{ dropdownLabel }}
         </label>
         <div class="dropdown relative">
             <div class="relative block">

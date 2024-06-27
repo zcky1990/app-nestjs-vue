@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-2">
-        <label for="SelectComponent" :class="['block text-xs font-light', getLabelTextColor]">
+        <label for="SelectComponent" :class="['block text-xs font-medium', getLabelTextColor]">
             {{ selectLabel }}
         </label>
         <select v-model="selectedValue"
@@ -17,7 +17,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
+interface SelectInputItem {
+    key: string;
+    value: string;
+}
 
 export default defineComponent({
     name: 'SelectComponent',
@@ -35,7 +39,7 @@ export default defineComponent({
             default: ''
         },
         selectItems: {
-            type: Array,
+            type: Array as PropType<SelectInputItem[]>,
             default: () => []
         }
     },

@@ -39,11 +39,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent,PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 
 interface DropdownItem {
-  key: string;
-  value: string;
+    key: string;
+    value: string;
 }
 
 export default defineComponent({

@@ -7,9 +7,15 @@ this is project that use nestJS handlebar engine + vueJS
 $ npm install
 ```
 
-## Running the app
+## Development
+To set up your NestJS and Vue.js application with Webpack such that both NestJS and Webpack run simultaneously during development
+you can use command : 
+```bash
+$ npm run develop
+```
+This command will help you streamline your development workflow by running both the backend and the frontend together or you can running in seperate instance with command below :
 
-running nestJS
+Running NestJS
 ```bash
 # development
 $ npm run start
@@ -21,7 +27,8 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-Running webpack hotreload
+Running Webpack to build vue
+
 ```bash
 # development mode
 $ npm run build:dev
@@ -31,6 +38,6 @@ $ npm run build:prod
 ```
 
 # Running StoryBook
-````
-npm run storybook
+````bash
+$ npm run storybook
 ````

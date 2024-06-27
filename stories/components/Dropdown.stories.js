@@ -1,7 +1,7 @@
-import Dropdown from "./../../src/frontend/form/DropdownComponent.vue";
+import Dropdown from "../../src/frontend/components/DropdownComponent.vue";
 
 export default {
-  title: "Form/Dropdown",
+  title: "Components/Dropdown",
   component: Dropdown,
   tags: ["autodocs"],
   parameters: {

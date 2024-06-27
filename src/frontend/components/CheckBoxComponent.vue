@@ -1,9 +1,10 @@
 <template>
     <fieldset>
-        <legend class="sr-only">Checkboxes</legend>
-        <label :class="['block text-xs font-medium text-gray-700']">{{ checkBoxLabel }}</label>
-        <label v-if=" checkBoxDescription!== undefined || checkBoxDescription !== ''" :class="['mt-1 block text-xs font-light text-gray-700']">{{ checkBoxDescription }}</label>
-        <div class="divide-y divide-gray-200">
+        <label v-if="checkBoxLabel !== undefined || checkBoxDescription !== ''"
+            :class="['block text-xs font-medium text-gray-700']">{{ checkBoxLabel }}</label>
+        <label v-if="checkBoxDescription !== undefined || checkBoxDescription !== ''"
+            :class="['mt-1 block text-xs font-light text-gray-700']">{{ checkBoxDescription }}</label>
+        <div :class="[getCheckBoxDividerCss]">
             <label v-for="item in checkBoxData" :key="item.value" class="flex cursor-pointer items-start gap-2 py-2">
                 <div class="flex items-center">
                     &#8203;
@@ -19,6 +20,7 @@
                 </div>
             </label>
         </div>
+        <label v-show="showError" :class="['block text-xs font-light pb-2 text-red-400']"> {{ getErrorText }} </label>
     </fieldset>
 </template>
 
@@ -38,7 +40,7 @@ export default defineComponent({
     props: {
         checkBoxLabel: {
             type: String,
-            default: 'Lorem ipsum dolor sit amet'
+            default: ''
         },
         checkBoxDescription: {
             type: String,
@@ -47,7 +49,7 @@ export default defineComponent({
         },
         checkBoxErrorLabel: {
             type: String,
-            default: 'Please checked the checkbox'
+            default: ''
         },
         checkBoxData: {
             type: Array as PropType<CheckBoxItem[]>,
@@ -71,6 +73,10 @@ export default defineComponent({
         showError: {
             type: Boolean,
             default: true
+        },
+        showCheckBoxDivider: {
+            type: Boolean,
+            default: true
         }
     },
     watch: {
@@ -79,16 +85,11 @@ export default defineComponent({
         }
     },
     computed: {
-        getHoverClassInput(): string {
-            return this.showError
-                ? 'focus-within:border-red-400 focus-within:ring-1 focus-within:ring-red-400'
-                : 'focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500';
+        getErrorText(): string {
+            return (this.checkBoxErrorLabel !== '' || this.checkBoxErrorLabel === undefined) ? this.checkBoxErrorLabel : 'Please checked the checkbox'
         },
-        getBorderClassInput(): string {
-            return this.showError ? 'border-red-400' : 'border-gray-200';
-        },
-        getLabelTextColor(): string {
-            return this.showError ? 'text-red-400' : 'text-gray-700';
+        getCheckBoxDividerCss(): string {
+            return this.showCheckBoxDivider ? 'divide-y divide-gray-200' : ''
         }
     },
     methods: {

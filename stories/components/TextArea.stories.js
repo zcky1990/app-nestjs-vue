@@ -1,7 +1,7 @@
-import TextArea from "./../../src/frontend/form/TextAreaComponent.vue";
+import TextArea from "../../src/frontend/components/TextAreaComponent.vue";
 
 export default {
-  title: "Form/TextArea",
+  title: "Components/TextArea",
   component: TextArea,
   tags: ["autodocs"],
   parameters: {

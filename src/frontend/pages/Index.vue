@@ -18,11 +18,11 @@
 <script lang="ts">
 import snackBar from "./../components/SnackbarComponent.vue";
 import dividerComp from "./../components/DividerComponent.vue";
-import dropdown from "./../form/DropdownComponent.vue"
-import selectComp from "./../form/SelectComponent.vue"
-import inputComp from "./../form/InputComponent.vue"
-import textArea from "./../form/TextAreaComponent.vue"
-import checkBox from "./../form/CheckBoxComponent.vue"
+import dropdown from "./../components/DropdownComponent.vue"
+import selectComp from "./../components/SelectComponent.vue"
+import inputComp from "./../components/InputComponent.vue"
+import textArea from "./../components/TextAreaComponent.vue"
+import checkBox from "./../components/CheckBoxComponent.vue"
 
 
 import { defineComponent } from 'vue';
